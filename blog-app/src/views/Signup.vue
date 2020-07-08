@@ -27,6 +27,8 @@
 
 
 <script>
+	import Axios from 'axios'
+
 	export default {
 		data() {
 			return {
@@ -38,7 +40,20 @@
 
 		methods: {
 			registerUser() {
-				console.log(this.name, this.email, this.password)
+				Axios.post('https://react-blog-api.bahdcasts.com/api/auth/register', {
+					name: this.name,
+					email: this.email,
+					password: this.password
+				}).then(res => {
+					const userData = res.data.data
+					localStorage.setItem('auth', JSON.stringify(userData))
+					this.$root.auth = userData
+
+					// Redirect user to home
+					this.$router.push('/')
+				}).catch(({response}) => {
+					console.log(response)
+				})
 			}
 		}
 	}
