@@ -6,14 +6,23 @@
 					<h2 class="text-center my-2">Signup</h2>
 					<div class="form-group">
 						<input v-model="name" type="text" placeholder="Full Name" class="form-control">
+						<div class="errors" v-if="errors.name">
+							<span class="text-danger" :key="error" v-for="error in errors.name">{{ error }}</span>
+						</div>
 					</div>
 
 					<div class="form-group">
-						<input v-model="email"	type="text" placeholder="Email" class="form-control">
+						<input v-model="email" type="text" placeholder="Email" class="form-control">
+						<div class="errors" v-if="errors.email">
+							<span class="text-danger" :key="error" v-for="error in errors.email">{{ error }}</span>
+						</div>
 					</div>
 
 					<div class="form-group">
 						<input v-model="password" type="password" placeholder="Password" class="form-control">
+						<div class="errors" v-if="errors.password">
+							<span class="text-danger" :key="error" v-for="error in errors.password">{{ error }}</span>
+						</div>
 					</div>
 
 					<div class="form-group text-center">
@@ -34,7 +43,8 @@
 			return {
 				name: '',
 				email: '',
-				password: ''
+				password: '',
+				errors: {}
 			}
 		},
 
@@ -51,8 +61,8 @@
 
 					// Redirect user to home
 					this.$router.push('/')
-				}).catch(({response}) => {
-					console.log(response)
+				}).catch(({ response }) => {
+					this.errors = response.data
 				})
 			}
 		}
