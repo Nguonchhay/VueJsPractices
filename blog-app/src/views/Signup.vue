@@ -26,7 +26,10 @@
 					</div>
 
 					<div class="form-group text-center">
-						<button @click="registerUser()" class="btn btn-success form-control">Signup</button>
+						<button :disabled="loading" @click="registerUser()" class="btn btn-success form-control">
+							<i v-if="loading" class="fas fa-spin fa-spinner"></i>
+							{{ loading ? '' : 'Signup'}}
+						</button>
 					</div>
 				</div>
 			</div>
@@ -44,17 +47,22 @@
 				name: '',
 				email: '',
 				password: '',
-				errors: {}
+				errors: {},
+				submitted: false,
+				loading: false
 			}
 		},
 
 		methods: {
 			registerUser() {
+				this.loading = true
 				Axios.post('https://react-blog-api.bahdcasts.com/api/auth/register', {
 					name: this.name,
 					email: this.email,
 					password: this.password
 				}).then(res => {
+					this.loading = false
+					this.submitted = true
 					const userData = res.data.data
 					localStorage.setItem('auth', JSON.stringify(userData))
 					this.$root.auth = userData
@@ -62,6 +70,8 @@
 					// Redirect user to home
 					this.$router.push('/')
 				}).catch(({ response }) => {
+					this.submitted = false
+					this.loading = false
 					this.errors = response.data
 				})
 			}
