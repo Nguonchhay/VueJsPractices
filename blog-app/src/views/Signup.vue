@@ -39,7 +39,7 @@
 
 
 <script>
-	import Axios from 'axios'
+	import firebase from "firebase"
 
 	export default {
 		data() {
@@ -56,24 +56,31 @@
 		methods: {
 			registerUser() {
 				this.loading = true
-				Axios.post('https://react-blog-api.bahdcasts.com/api/auth/register', {
-					name: this.name,
-					email: this.email,
-					password: this.password
-				}).then(res => {
-					this.loading = false
-					this.submitted = true
-					const userData = res.data.data
-					localStorage.setItem('auth', JSON.stringify(userData))
-					this.$root.auth = userData
+				this.submitted = true
+				firebase
+					.auth()
+					.createUserWithEmailAndPassword(this.email, this.password)
+					.then(data => {
+						data.user
+							.updateProfile({
+								displayName: this.name
+							})
+							.then(() => {
+								this.loading = false
+								this.submitted = false
+								const userData = data.user
+								localStorage.setItem('auth', JSON.stringify(userData))
+								this.$root.auth = userData
 
-					// Redirect user to home
-					this.$router.push('/')
-				}).catch(({ response }) => {
-					this.submitted = false
-					this.loading = false
-					this.errors = response.data
-				})
+								// Redirect user to home
+								this.$router.push('/')
+							});
+					})
+					.catch(err => {
+						this.submitted = false
+						this.loading = false
+						this.errors = err
+					});
 			}
 		}
 	}

@@ -18,7 +18,7 @@
 
 					<li class="nav-item dropdown" v-if="authUser">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Hey {{ authUser.name }}
+							Hey {{ authUser.displayName }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#">Logout</a>
@@ -37,7 +37,7 @@
 export default {
 	computed: {
 		authUser() {
-			return this.$root.auth.user;
+			return this.$root.auth;
 		}
 	}
 }

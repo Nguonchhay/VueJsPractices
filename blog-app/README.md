@@ -20,5 +20,9 @@ yarn build
 yarn lint
 ```
 
+# Resources
+
+* Firebase: https://console.firebase.google.com/project/vueblogdemo-f9ff7/authentication/users
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
