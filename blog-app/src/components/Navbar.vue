@@ -8,21 +8,21 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li v-if="!authUser" class="nav-item">
+					<li v-if="!authUser.displayName" class="nav-item">
 						<router-link class="nav-link" to="/login">Login</router-link>
 					</li>
 
-					<li v-if="!authUser" class="nav-item">
+					<li v-if="!authUser.displayName" class="nav-item">
 						<router-link class="nav-link" to="/signup">Signup</router-link>
 					</li>
 
-					<li class="nav-item dropdown" v-if="authUser">
+					<li class="nav-item dropdown" v-if="authUser.displayName">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Hey {{ authUser.displayName }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Logout</a>
-							</div>
+							<a @click="$emit('signout-user')" class="dropdown-item" href="#">Logout</a>
+						</div>
 					</li>
 				</ul>
 			</div>
