@@ -1,7 +1,7 @@
 <template>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="#">Blog App</a>
+			<router-link class="navbar-brand" to="/">Blog App</router-link>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -21,7 +21,7 @@
 							Hey {{ authUser.displayName }}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a @click="$emit('signout-user')" class="dropdown-item" href="#">Logout</a>
+							<a @click="logout()" class="dropdown-item" href="#">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -34,10 +34,31 @@
 
 <script>
 
+import firebase from 'firebase';
+
 export default {
 	computed: {
 		authUser() {
 			return this.$root.auth;
+		}
+	},
+	methods: {
+		logout() {
+		firebase.auth().signOut()
+			.then(() => {
+				localStorage.setItem('auth', '{}')
+
+				this.logoutCallback()
+			}).catch(error => {
+				alert('Something went wrong while trying to sign out user!')
+				console.log(error)
+			});
+		},
+		logoutCallback() {
+			if (this.$router.currentRoute.path.trim() !== '/') {
+				// Redirect user to home
+				this.$router.push('/')
+			}
 		}
 	}
 }
