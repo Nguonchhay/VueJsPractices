@@ -40,6 +40,13 @@
 	import firebase from 'firebase'
 
 	export default {
+		beforeRouteEnter(to, from, next) {
+			const authUser = JSON.parse(localStorage.getItem('auth'))
+			if (authUser.email) {
+				return next({ path: '/' })
+			}
+			next()
+		},
 		data() {
 			return {
 				email: '',

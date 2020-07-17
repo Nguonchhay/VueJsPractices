@@ -42,6 +42,13 @@
 	import firebase from "firebase"
 
 	export default {
+		beforeRouteEnter(to, from, next) {
+			const authUser = JSON.parse(localStorage.getItem('auth'))
+			if (authUser.displayName) {
+				return next({ path: '/' })
+			}
+			next()
+		},
 		data() {
 			return {
 				name: '',
