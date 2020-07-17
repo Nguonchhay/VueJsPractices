@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import * as firebase from "firebase"
+import VueNoty from 'vuejs-noty'
 
 import App from './App.vue'
 import router from './router'
 
+import 'vuejs-noty/dist/vuejs-noty.css'
+
 Vue.config.productionTip = false
+
+Vue.use(VueNoty)
 
 Vue.use(firebase)
 const configOptions = {

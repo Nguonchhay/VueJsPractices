@@ -22,7 +22,8 @@ yarn lint
 
 # Resources
 
-* Firebase: https://console.firebase.google.com/project/vueblogdemo-f9ff7/authentication/users
+* [Firebase](https://console.firebase.google.com/project/vueblogdemo-f9ff7/authentication/users)
+* Flash message with [VueJs Noty](https://github.com/renoguyon/vuejs-noty)
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
