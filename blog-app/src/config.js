@@ -1,3 +1,3 @@
 export default {
-  apiUrl: 'http://localhost:8085'
+  apiUrl: process.env.VUE_APP_API_URL
 }

@@ -5,6 +5,16 @@
 yarn install
 ```
 
+### Configure environment
+```
+cp -a .env.local.example .env.local
+```
+
+### Start local server
+```
+json-server db/data.json -p 8085
+```
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
