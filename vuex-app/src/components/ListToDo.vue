@@ -6,6 +6,9 @@
 
 <script>
 	export default {
+		mounted() {
+			this.$store.dispatch('listToDoAction')
+		},
 		computed: {
 			todos() {
 				return this.$store.state.todos
