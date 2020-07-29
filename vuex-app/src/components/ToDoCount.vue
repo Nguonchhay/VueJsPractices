@@ -8,7 +8,7 @@
 	export default {
 		computed: {
 			count() {
-				return this.$store.state.todos.length
+				return this.$store.getters.todoCount
 			}
 		}
 	}

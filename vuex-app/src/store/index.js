@@ -14,6 +14,11 @@ const store = new Vuex.Store({
           payload
       ]
     }
+  },
+  getters: {
+    todoCount(state) {
+      return state.todos.length
+    }
   }
 })
 
