@@ -25,14 +25,25 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    listToDoAction(context) {
+    listToDoAction({commit}) {
       Axios.get('https://5f211dbfdaa42f00166654ba.mockapi.io/todos')
         .then(res => {
-          context.commit('addToDos', res.data.map(item => item.title))
+          commit('addToDos', res.data.map(item => item.title))
         })
         .catch(err => {
           console.log(err)
         })
+    },
+    addToDoAction({state, commit}, payload) {
+      Axios.post('https://5f211dbfdaa42f00166654ba.mockapi.io/todos', {
+        name: payload.todo
+      })
+      .then(() => {
+        commit('addToDo', state, payload.todo)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 })

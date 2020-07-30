@@ -11,7 +11,7 @@
 		}),
 		methods: {
 			saveToDo() {
-				this.$store.commit('addToDo', this.todo)
+				this.$store.dispatch('addToDoAction', this.todo)
 				this.todo = ''
 			}
 		}
