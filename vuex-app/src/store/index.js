@@ -4,19 +4,29 @@ import Axios from 'axios';
 
 Vue.use(Vuex)
 
+const apiBaseUrl = 'http://localhost:8085'
+
 export default new Vuex.Store({
   state: {
     todos: []
   },
   mutations: {
     addToDo(state, payload) {
-      state.todos = [
-          ...state.todos,
-          payload
-      ]
+      state.todos.push(payload)
     },
     addToDos(state, payload = []) {
       state.todos = payload
+    },
+    editToDo(state, payload) {
+      state.todos = state.todos.map(todo => {
+        if (todo.id === payload.id) {
+          todo.title = payload.todo
+        }
+        return todo
+      })
+    },
+    deleteToDo(state, payload) {
+      state.todos = state.todos.filter(todo => todo.id !== payload)
     }
   },
   getters: {
@@ -26,20 +36,40 @@ export default new Vuex.Store({
   },
   actions: {
     listToDoAction({commit}) {
-      Axios.get('https://5f211dbfdaa42f00166654ba.mockapi.io/todos')
+      Axios.get(`${apiBaseUrl}/todos`)
         .then(res => {
-          commit('addToDos', res.data.map(item => item.title))
+          commit('addToDos', res.data)
         })
         .catch(err => {
           console.log(err)
         })
     },
-    addToDoAction({state, commit}, payload) {
-      Axios.post('https://5f211dbfdaa42f00166654ba.mockapi.io/todos', {
-        name: payload.todo
+    addToDoAction({commit}, payload) {
+      Axios.post(`${apiBaseUrl}/todos`, {
+        title: payload
+      })
+      .then(res => {
+        commit('addToDo', res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    editToDoAction({state, commit}, payload) {
+      Axios.put(`${apiBaseUrl}/todos/${payload.id}`, {
+        title: payload.todo
       })
       .then(() => {
-        commit('addToDo', state, payload.todo)
+        commit('editToDo', state, payload)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+    deleteToDoAction({commit}, payload) {
+      Axios.delete(`${apiBaseUrl}/todos/${payload}`)
+      .then(() => {
+        commit('deleteToDo', payload)
       })
       .catch(err => {
         console.log(err)

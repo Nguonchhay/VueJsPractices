@@ -5,6 +5,11 @@
 yarn install
 ```
 
+### Start local server
+```
+json-server data/todos.json -p 8085
+```
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve

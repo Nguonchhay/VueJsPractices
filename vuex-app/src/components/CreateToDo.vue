@@ -1,18 +1,18 @@
 <template>
 	<div>
-		<input type="text" v-model="todo" @keyup.enter="saveToDo" placeholder="ToDo item" />
+		<input type="text" v-model="title" @keyup.enter="saveToDo" placeholder="ToDo item" />
 	</div>
 </template>
 
 <script>
 	export default {
 		data: () => ({
-			todo: ''
+			title: ''
 		}),
 		methods: {
 			saveToDo() {
-				this.$store.dispatch('addToDoAction', this.todo)
-				this.todo = ''
+				this.$store.dispatch('addToDoAction', this.title)
+				this.title = ''
 			}
 		}
 	}
