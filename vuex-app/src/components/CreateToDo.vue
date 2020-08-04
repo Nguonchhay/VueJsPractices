@@ -11,7 +11,7 @@
 		}),
 		methods: {
 			saveToDo() {
-				this.$store.dispatch('addToDoAction', this.title)
+				this.$store.dispatch('todos/addToDoAction', this.title)
 				this.title = ''
 			}
 		}

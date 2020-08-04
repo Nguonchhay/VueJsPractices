@@ -13,17 +13,17 @@
 <script>
 	export default {
 		mounted() {
-			this.$store.dispatch('listToDoAction')
+			this.$store.dispatch('todos/listToDoAction')
 		},
 		computed: {
 			todos() {
-				return this.$store.state.todos
+				return this.$store.state.todos.todos
 			}
 		},
 		methods: {
 			deleteToDo(id) {
 				if (confirm('Are you sure?')) {
-					this.$store.dispatch('deleteToDoAction', id)
+					this.$store.dispatch('todos/deleteToDoAction', id)
 				}
 			}
 		}
