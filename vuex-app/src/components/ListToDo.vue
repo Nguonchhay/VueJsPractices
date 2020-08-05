@@ -11,15 +11,15 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
+
 	export default {
 		mounted() {
 			this.$store.dispatch('todos/listToDoAction')
 		},
-		computed: {
-			todos() {
-				return this.$store.state.todos.todos
-			}
-		},
+		computed: mapState({
+			todos: state => state.todos.todos
+		}),
 		methods: {
 			deleteToDo(id) {
 				if (confirm('Are you sure?')) {

@@ -5,11 +5,11 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
+
 	export default {
-		computed: {
-			count() {
-				return this.$store.getters.todoCount
-			}
-		}
+		computed: mapState({
+			count: state => state.todos.todos.length
+		})
 	}
 </script>
